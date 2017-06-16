@@ -1,0 +1,77 @@
+<html>
+<head>
+<style type="text/css">
+body {
+	margin:0px;
+}	
+#one {
+	color: red;
+	margin-top: 50px;
+	border: 1px dotted black;
+	text-align: center;
+	height: 100px;
+
+}
+h3 {
+	color: green;
+}
+#com {
+	color: blue;
+}
+#head {
+	background-color: orange;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+}
+#com1{
+	background-color: grey;
+}
+#com2 {
+	background-color: lightblue;
+}
+</style>
+ </head>
+<body>
+<div id="head">Article Name : <%= @article.title %> </div>
+
+<div id="one">  <br>
+  <strong>Description : </strong>
+  <%= @article.text %>
+
+</div>
+<div id="com1">
+<h3>Comments</h3>
+<% @article.comments.each do |comment| %>
+  <p>
+    <strong>User Name :</strong>
+    <%= comment.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comment.body %> 
+  </p>
+<% end %>
+</div>
+<div id="com2">
+ <h3>Add a comment:</h3>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+  <p>
+    <%= f.label :commenter %><br>
+    <%= f.text_field :commenter %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+</div>
+<%= link_to 'Back', articles_path %>
+<%= link_to 'Edit', edit_article_path(@article) %>
+
+</body>
+</html>
